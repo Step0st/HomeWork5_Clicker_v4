@@ -14,15 +14,7 @@ namespace Game.Mechanics
             spawnObjects();
         }
         
-        private void Update()
-        {
-            if (GameObject.FindGameObjectsWithTag("Pinata").Length == 0)
-            {
-                spawnObjects();
-            }
-            
-        }
-
+        
         public void spawnObjects()
         {
             int randomItem = 0;

@@ -21,7 +21,7 @@ namespace Game.Mechanics
         {
                 transform.localScale = Vector3.Lerp(transform.localScale, targetScale, _speed * Time.deltaTime);
                 blowing += _speed * Time.timeScale;
-                if (blowing > 80)
+                if (blowing > 10)
                 {
                     Destroy(gameObject);
                 }

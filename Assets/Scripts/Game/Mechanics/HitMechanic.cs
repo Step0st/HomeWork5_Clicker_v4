@@ -10,8 +10,15 @@ namespace Game.Mechanics
         private int HpPoint = 5;
         private int PinatasDestroyed = 0;
         public Text PinatasCounter;
+        [SerializeField] private SpawnMechanics _spawnMechanics;
         private void Update()
         {
+            if (GameObject.FindGameObjectsWithTag("Pinata").Length == 0)
+            {
+                HpPoint=5;
+                _spawnMechanics.spawnObjects();
+            }
+            
             
             if (Input.GetMouseButtonDown(0))
             {
@@ -44,14 +51,12 @@ namespace Game.Mechanics
                             break;
                         }
                     }
-
-                    
                 }
+                
+                
             }
-            if (GameObject.FindGameObjectsWithTag("Pinata").Length == 0)
-            {
-                HpPoint=5;
-            }
+            
+            
             
             PinatasCounter.text = PinatasDestroyed.ToString();
         }
