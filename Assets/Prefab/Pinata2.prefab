@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8732750940991830313}
   - component: {fileID: 6854995152488681337}
   - component: {fileID: 1992414239099113939}
+  - component: {fileID: -5447447728337949612}
   m_Layer: 0
   m_Name: Pinata2
   m_TagString: Pinata
@@ -99,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 0.05
+  blowing: 0
 --- !u!60 &8732750940991830313
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -238,3 +240,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6b555394004513b6771d2129da6297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5447447728337949612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98421958905168343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc175d238b9434db06e73a4b374f37e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 7

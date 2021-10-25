@@ -1,26 +1,30 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 namespace Game.Mechanics
 {
-    public class AppearanceMechanic:MonoBehaviour
-    
-    
-    {   
+    public class AppearanceMechanic : MonoBehaviour
+    {
         private float _oppacity;
-    
-        void Start()
+
+        void OnEnable()
         {
             _oppacity = 0;
         }
-    
+
         private void Update()
         {
-            //better to use Coroutines, but for the first time I try that method
-            for (float i = 0; i <10; i+= Time.deltaTime)
+            StartCoroutine(Timer());
+
+            IEnumerator Timer()
             {
-                _oppacity += Time.deltaTime/3000;
-                GetComponent<SpriteRenderer>().color= new Color(1f, 1f, 1f, _oppacity);
+                while (_oppacity <= 1)
+                {
+                    _oppacity += Time.deltaTime / 700;
+                    GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, _oppacity);
+                    yield return null;
+                }
             }
         }
     }
