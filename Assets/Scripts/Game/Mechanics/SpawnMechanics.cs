@@ -11,7 +11,6 @@ namespace Game.Mechanics
         public GameObject UnderBorder;
         public GameObject _spawnedObject;
 
-
         public void spawnObjects()
         {
             int randomItem = 0;

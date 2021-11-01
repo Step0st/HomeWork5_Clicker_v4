@@ -20,7 +20,6 @@ namespace Game.Mechanics
             PinatasDestroyed = 0;
             Initialization();
         }
-
         public void Update()
         {
             //Blow destruction

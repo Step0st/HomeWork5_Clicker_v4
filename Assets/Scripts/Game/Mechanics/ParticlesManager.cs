@@ -8,7 +8,6 @@ public class ParticlesManager : MonoBehaviour
 
     [SerializeField] private GameObject _part;
     
-
     public void ParticlesExplotion(Vector3 pos)
     {
         var spawnedParticle = Instantiate(_part, pos, Quaternion.Euler(0, 0, 0));

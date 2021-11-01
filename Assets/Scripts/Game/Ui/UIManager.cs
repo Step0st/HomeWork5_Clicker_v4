@@ -89,6 +89,12 @@ namespace Game.Mechanics
                     Time.timeScale = 0;
                 }
             };
+            
+            _gameModesWindow.BackEvent += () =>
+            {
+                _gameModesWindow.gameObject.SetActive(false);
+                _startWindow.gameObject.SetActive(true);
+            };
 
             _hintsWindow.CloseEvent += () =>
             {
@@ -112,12 +118,6 @@ namespace Game.Mechanics
             _scoreWindow.CreditsEvent += () => { SceneManager.LoadScene("Credits"); };
 
             _scoreWindow.BackEvent += () => { SceneManager.LoadScene("SampleScene"); };
-
-            _gameModesWindow.BackEvent += () =>
-            {
-                _gameModesWindow.gameObject.SetActive(false);
-                _startWindow.gameObject.SetActive(true);
-            };
         }
     }
 }

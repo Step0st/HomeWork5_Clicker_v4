@@ -9,8 +9,6 @@ namespace Game.Mechanics
         public Slider Slider;
         //private GameObject _hpBar;
         //public GameObject healthBar, hpBarField;
-        
-
         public void SetHealthBar(int health)
         {
             //var pos = GetComponent<SpawnMechanics>().pos;
@@ -21,7 +19,6 @@ namespace Game.Mechanics
             Slider.maxValue = health;
             Slider.value = health;
         }
-        
         public void SetHealth(int health)
         {
             Slider.value = health;

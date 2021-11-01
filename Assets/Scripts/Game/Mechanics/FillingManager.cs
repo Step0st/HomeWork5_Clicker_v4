@@ -6,17 +6,13 @@ using Random = UnityEngine.Random;
 namespace Game.Mechanics
 {
     public class FillingManager: MonoBehaviour
-    
     {
         [SerializeField] private List<GameObject> FillingPool;
         [SerializeField] private List<GameObject> ConfettiPool;
-        
         public void spawnFilling(Vector3 pos)
         {
             int randomItem = 0;
-            
             GameObject toSpawn;
-            
             
             // CandySpawn
             var NumberOfCandies = Random.Range(2, 4);
