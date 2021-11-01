@@ -14,7 +14,7 @@ namespace Game.Mechanics
         public Text PinatasCounter;
         public Text ScoreCounter;
         [SerializeField] private SpawnMechanics _spawnMechanics;
-
+        private Vector3 pos;
         public void Start()
         {
             PinatasDestroyed = 0;
@@ -35,7 +35,7 @@ namespace Game.Mechanics
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    var pos = _camera.ScreenToWorldPoint(Input.mousePosition);
+                    pos = _camera.ScreenToWorldPoint(Input.mousePosition);
                     Collider2D[] col = Physics2D.OverlapPointAll(pos);
 
                     if (col.Length == 1)
@@ -61,6 +61,7 @@ namespace Game.Mechanics
             //Destroyed pinatas counter to text
             PinatasCounter.text = PinatasDestroyed.ToString();
             ScoreCounter.text = PinatasDestroyed.ToString() + " Pinatas";
+            
         }
 
         private void Initialization()
@@ -68,16 +69,21 @@ namespace Game.Mechanics
             _spawnMechanics.spawnObjects();
             clone = _spawnMechanics._spawnedObject;
             health = clone.GetComponent<HpManager>().Health;
+            
         }
 
         private void Damage()
         {
             health += -1;
+            GetComponent<DamageTextManager>().damageToText(1);
+            _spawnMechanics._spawnedObject.GetComponent<Animation>().Play();
         }
 
         private void DoubleDamage()
         {
             health += -2;
+            GetComponent<DamageTextManager>().damageToText(2);
+            _spawnMechanics._spawnedObject.GetComponent<Animation>().Play();
         }
 
         private void IfDestroyed()
@@ -85,6 +91,9 @@ namespace Game.Mechanics
             if (health <= 0)
             {
                 _spawnMechanics.destroyObject();
+                pos = _camera.ScreenToWorldPoint(Input.mousePosition);
+                GetComponent<FillingManager>().spawnFilling(pos);
+                GetComponent<ParticlesManager>().ParticlesExplotion(pos);
                 Initialization();
                 PinatasDestroyed += 1;
             }

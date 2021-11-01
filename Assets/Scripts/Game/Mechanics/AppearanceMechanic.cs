@@ -21,7 +21,7 @@ namespace Game.Mechanics
             {
                 while (_oppacity <= 1)
                 {
-                    _oppacity += Time.deltaTime / 700;
+                    _oppacity += Time.deltaTime / 500;
                     GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, _oppacity);
                     yield return null;
                 }

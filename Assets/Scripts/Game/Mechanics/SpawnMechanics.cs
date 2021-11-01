@@ -21,10 +21,8 @@ namespace Game.Mechanics
             Vector2 pos;
             //int numberToSpawn = Random.Range(1, 3);
             //for (int i=0; i < numberToSpawn;i++){} - optional mechanic to add more than one pinata
-
             randomItem = Random.Range(0, SpawnPool.Count);
             toSpawn = SpawnPool[randomItem];
-
             screenX = Random.Range(c.bounds.min.x, c.bounds.max.x);
             screenY = Random.Range(c.bounds.min.y, c.bounds.max.y);
             pos = new Vector2(screenX, screenY);

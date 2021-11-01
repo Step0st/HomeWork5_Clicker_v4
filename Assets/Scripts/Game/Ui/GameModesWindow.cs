@@ -6,6 +6,8 @@ public class GameModesWindow : MonoBehaviour
     public Action EndlessGameEvent;
 
     public Action TimeGameEvent;
+    
+    public Action HintsEvent;
 
     public Action BackEvent;
 
@@ -16,6 +18,10 @@ public class GameModesWindow : MonoBehaviour
     public void OnTimeGame()
     {
         TimeGameEvent?.Invoke();
+    }
+    public void OnHintsButton()
+    {
+        HintsEvent?.Invoke();
     }
     public void OnBackToMenu()
     {

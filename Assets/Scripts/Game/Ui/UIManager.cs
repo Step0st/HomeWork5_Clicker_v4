@@ -16,17 +16,21 @@ namespace Game.Mechanics
         [SerializeField] private ScoreWindow _scoreWindow;
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private PauseWindow _pauseWindow;
+        [SerializeField] private ParticleSystem _winConfetti;
+        [SerializeField] private HintsWindow _hintsWindow;
         [SerializeField] private Text _time;
 
         private void Start()
         {
             Time.timeScale = 0;
-
+            
             _startWindow.gameObject.SetActive(true);
             _gameModesWindow.gameObject.SetActive(false);
             _scoreWindow.gameObject.SetActive(false);
             _gameScreen.gameObject.SetActive(false);
+            _hintsWindow.gameObject.SetActive(false);
             _pauseWindow.gameObject.SetActive(false);
+            _winConfetti.gameObject.SetActive(false);
 
             _startWindow.QuitEvent += () => { ExitHelper.Exit(); };
 
@@ -42,6 +46,11 @@ namespace Game.Mechanics
                 Time.timeScale = 1;
             };
 
+            _gameModesWindow.HintsEvent += () =>
+            {
+                _hintsWindow.gameObject.SetActive(true);
+            };
+            
             _gameModesWindow.EndlessGameEvent += () =>
             {
                 Time.timeScale = 1;
@@ -75,10 +84,15 @@ namespace Game.Mechanics
                         _time.text = timer.ToString();
                         yield return new WaitForSeconds(1f);
                     }
-
                     _scoreWindow.gameObject.SetActive(true);
+                    _winConfetti.gameObject.SetActive(true);
                     Time.timeScale = 0;
                 }
+            };
+
+            _hintsWindow.CloseEvent += () =>
+            {
+                _hintsWindow.gameObject.SetActive(false);
             };
 
             _gameScreen.PauseEvent += () =>

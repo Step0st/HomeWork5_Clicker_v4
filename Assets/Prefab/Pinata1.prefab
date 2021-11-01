@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3603886756870497477}
   - component: {fileID: -8928791887981224331}
   - component: {fileID: -2252407867929047808}
+  - component: {fileID: 4055529307484723064}
   m_Layer: 0
   m_Name: Pinata1
   m_TagString: Pinata
@@ -235,3 +236,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 5
+--- !u!111 &4055529307484723064
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8426985621065430667}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: ff993fb603bfa8844906fa70d7772c6f, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: ff993fb603bfa8844906fa70d7772c6f, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
