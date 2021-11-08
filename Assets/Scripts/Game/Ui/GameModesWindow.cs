@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameModesWindow : MonoBehaviour
 {
-    public Action EndlessGameEvent;
+    public Action CandyGameEvent;
 
     public Action TimeGameEvent;
     
@@ -11,9 +11,9 @@ public class GameModesWindow : MonoBehaviour
 
     public Action BackEvent;
 
-    public void OnEndlessGame()
+    public void OnCandyGame()
     {
-        EndlessGameEvent?.Invoke();
+        CandyGameEvent?.Invoke();
     }
     public void OnTimeGame()
     {

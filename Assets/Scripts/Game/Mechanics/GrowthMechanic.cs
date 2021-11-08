@@ -9,12 +9,10 @@ namespace Game.Mechanics
         [SerializeField] private float _speed = 0.05f;
         private Vector3 targetScale;
         public float blowing;
-
         void OnEnable()
         {
             targetScale = transform.localScale * _maxSize;
         }
-
         void Update()
         {
             transform.localScale = Vector3.Lerp(transform.localScale, targetScale, _speed * Time.deltaTime);

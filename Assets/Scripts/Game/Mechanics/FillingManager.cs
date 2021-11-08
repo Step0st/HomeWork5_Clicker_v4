@@ -1,7 +1,9 @@
 using UnityEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 namespace Game.Mechanics
 {
@@ -9,13 +11,14 @@ namespace Game.Mechanics
     {
         [SerializeField] private List<GameObject> FillingPool;
         [SerializeField] private List<GameObject> ConfettiPool;
+        [HideInInspector] public int NumOfSpawnedCandies = 0;
         public void spawnFilling(Vector3 pos)
         {
             int randomItem = 0;
             GameObject toSpawn;
             
             // CandySpawn
-            var NumberOfCandies = Random.Range(2, 4);
+            var NumberOfCandies = Random.Range(2, 5);
             for (int i = 0; i < NumberOfCandies; i++)
             {
                 randomItem = Random.Range(0, FillingPool.Count);
@@ -34,6 +37,8 @@ namespace Game.Mechanics
                 var spawnpos = new Vector3(pos.x+Random.Range(-0.5f,0.5f), pos.y+Random.Range(-0.5f,0.5f), 0);
                 Instantiate(toSpawn, spawnpos, Quaternion.Euler(0, 0, Random.Range(-90, 90)));
             }
+
+            NumOfSpawnedCandies += NumberOfCandies;
         }
     }
 }

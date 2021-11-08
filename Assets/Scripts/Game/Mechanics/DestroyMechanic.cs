@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Sounds;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +14,9 @@ namespace Game.Mechanics
         private int PinatasDestroyed;
         public Text PinatasCounter;
         public Text ScoreCounter;
-        [SerializeField] private SpawnMechanics _spawnMechanics;
+        [SerializeField] private GameObject _gameSounds;
         private Vector3 pos;
+        
         public void Start()
         {
             PinatasDestroyed = 0;
@@ -25,7 +27,8 @@ namespace Game.Mechanics
             //Blow destruction
             if (clone.GetComponent<GrowthMechanic>().blowing >= 90)
             {
-                _spawnMechanics.destroyObject();
+                GetComponent<SpawnMechanics>().destroyObject();
+                _gameSounds.GetComponent<SoundPlayer>().FleeSound();
                 Initialization();
             }
 
@@ -56,43 +59,44 @@ namespace Game.Mechanics
                     }
                 }
             }
-
+            
             //Destroyed pinatas counter to text
             PinatasCounter.text = PinatasDestroyed.ToString();
             ScoreCounter.text = PinatasDestroyed.ToString() + " Pinatas";
-            
         }
 
         private void Initialization()
         {
-            _spawnMechanics.spawnObjects();
-            clone = _spawnMechanics._spawnedObject;
+            GetComponent<SpawnMechanics>().spawnObjects();
+            clone = GetComponent<SpawnMechanics>()._spawnedObject;
             health = clone.GetComponent<HpManager>().Health;
-            
         }
 
         private void Damage()
         {
             health += -1;
             GetComponent<DamageTextManager>().damageToText(1);
-            _spawnMechanics._spawnedObject.GetComponent<Animation>().Play();
+            GetComponent<SpawnMechanics>()._spawnedObject.GetComponent<Animation>().Play("ClickShake");
+            _gameSounds.GetComponent<SoundPlayer>().DamageSound();
         }
 
         private void DoubleDamage()
         {
             health += -2;
             GetComponent<DamageTextManager>().damageToText(2);
-            _spawnMechanics._spawnedObject.GetComponent<Animation>().Play();
+            GetComponent<SpawnMechanics>()._spawnedObject.GetComponent<Animation>().Play("ClickShake");
+            _gameSounds.GetComponent<SoundPlayer>().DoubleDamageSound();
         }
 
         private void IfDestroyed()
         {
             if (health <= 0)
             {
-                _spawnMechanics.destroyObject();
+                GetComponent<SpawnMechanics>().destroyObject();
                 pos = _camera.ScreenToWorldPoint(Input.mousePosition);
                 GetComponent<FillingManager>().spawnFilling(pos);
                 GetComponent<ParticlesManager>().ParticlesExplotion(pos);
+                _gameSounds.GetComponent<SoundPlayer>().DestroySound();
                 Initialization();
                 PinatasDestroyed += 1;
             }

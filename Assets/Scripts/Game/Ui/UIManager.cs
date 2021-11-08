@@ -14,16 +14,18 @@ namespace Game.Mechanics
         [SerializeField] private StartWindow _startWindow;
         [SerializeField] private GameModesWindow _gameModesWindow;
         [SerializeField] private ScoreWindow _scoreWindow;
+        [SerializeField] private GameObject _timeModeScoreWindow;
+        [SerializeField] private GameObject _candyModeScoreWindow;
         [SerializeField] private GameScreen _gameScreen;
+        [SerializeField] private GameObject _candyCounter;
         [SerializeField] private PauseWindow _pauseWindow;
         [SerializeField] private ParticleSystem _winConfetti;
         [SerializeField] private HintsWindow _hintsWindow;
         [SerializeField] private Text _time;
-
+        
         private void Start()
         {
             Time.timeScale = 0;
-            
             _startWindow.gameObject.SetActive(true);
             _gameModesWindow.gameObject.SetActive(false);
             _scoreWindow.gameObject.SetActive(false);
@@ -31,7 +33,7 @@ namespace Game.Mechanics
             _hintsWindow.gameObject.SetActive(false);
             _pauseWindow.gameObject.SetActive(false);
             _winConfetti.gameObject.SetActive(false);
-
+            
             _startWindow.QuitEvent += () => { ExitHelper.Exit(); };
 
             _startWindow.NewGameEvent += () =>
@@ -42,7 +44,7 @@ namespace Game.Mechanics
 
             _startWindow.CreditsEvent += () =>
             {
-                SceneManager.LoadScene("Credits");
+                LoadCredits();
                 Time.timeScale = 1;
             };
 
@@ -51,17 +53,25 @@ namespace Game.Mechanics
                 _hintsWindow.gameObject.SetActive(true);
             };
             
-            _gameModesWindow.EndlessGameEvent += () =>
+            _gameModesWindow.CandyGameEvent += () =>
             {
                 Time.timeScale = 1;
                 _gameModesWindow.gameObject.SetActive(false);
                 _gameScreen.gameObject.SetActive(true);
                 StartCoroutine(Timer());
-
+                
+                GetComponent<CandyModeManager>().EndGameEvent += () =>
+                {
+                    _scoreWindow.gameObject.SetActive(true);
+                    _timeModeScoreWindow.gameObject.SetActive(false);
+                    _winConfetti.gameObject.SetActive(true);
+                    Time.timeScale = 0;
+                };
+                
                 IEnumerator Timer()
                 {
-                    int timer = 0;
-                    while ((timer += 1) > 0)
+                    int timer = -1;
+                    while ((timer += 1) > -1)
                     {
                         _time.text = timer.ToString();
                         yield return new WaitForSeconds(1f);
@@ -74,17 +84,20 @@ namespace Game.Mechanics
                 Time.timeScale = 1;
                 _gameModesWindow.gameObject.SetActive(false);
                 _gameScreen.gameObject.SetActive(true);
-                StartCoroutine(CountdownTimer(21));
+                _candyCounter.gameObject.SetActive(false);
+                int TimeForAGame = GetComponent<TimeModeManager>().TimeForAGame + 1;
+                StartCoroutine(CountdownTimer(TimeForAGame));
 
                 IEnumerator CountdownTimer(int seconds)
                 {
-                    int timer = seconds;
-                    while ((timer -= 1) >= 0)
+                    int countdownTimer = seconds;
+                    while ((countdownTimer -= 1) >= 0)
                     {
-                        _time.text = timer.ToString();
+                        _time.text = countdownTimer.ToString();
                         yield return new WaitForSeconds(1f);
                     }
                     _scoreWindow.gameObject.SetActive(true);
+                    _candyModeScoreWindow.gameObject.SetActive(false);
                     _winConfetti.gameObject.SetActive(true);
                     Time.timeScale = 0;
                 }
@@ -112,12 +125,21 @@ namespace Game.Mechanics
                 Time.timeScale = 1;
                 _pauseWindow.gameObject.SetActive(false);
             };
+            
+            _pauseWindow.BackEvent += () => { LoadSampleScene(); };
 
-            _pauseWindow.BackEvent += () => { SceneManager.LoadScene("SampleScene"); };
-
-            _scoreWindow.CreditsEvent += () => { SceneManager.LoadScene("Credits"); };
-
-            _scoreWindow.BackEvent += () => { SceneManager.LoadScene("SampleScene"); };
+            _scoreWindow.CreditsEvent += () => { LoadCredits(); };
+            
+            _scoreWindow.BackEvent += () => { LoadSampleScene(); };
+        }
+        private void LoadSampleScene()
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+        
+        private void LoadCredits()
+        {
+            SceneManager.LoadScene("Credits");
         }
     }
 }

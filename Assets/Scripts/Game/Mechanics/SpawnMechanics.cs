@@ -9,8 +9,7 @@ namespace Game.Mechanics
     {
         public List<GameObject> SpawnPool;
         public GameObject UnderBorder;
-        public GameObject _spawnedObject;
-
+        [HideInInspector] public GameObject _spawnedObject;
         public void spawnObjects()
         {
             int randomItem = 0;
@@ -25,10 +24,9 @@ namespace Game.Mechanics
             screenX = Random.Range(c.bounds.min.x, c.bounds.max.x);
             screenY = Random.Range(c.bounds.min.y, c.bounds.max.y);
             pos = new Vector2(screenX, screenY);
-            toSpawn.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0);
-            _spawnedObject = Instantiate(toSpawn, pos, Quaternion.Euler(0, 0, Random.Range(-25, 25)));
+            _spawnedObject = Instantiate(toSpawn, pos, Quaternion.Euler(0, 0, Random.Range(-15, 15)));
+            _spawnedObject.GetComponent<Animation>().Play("Appearance");
         }
-
         public void destroyObject()
         {
             Destroy(_spawnedObject.gameObject);
